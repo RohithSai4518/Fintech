@@ -1,3 +1,0 @@
-Feature: feat(ledger): Double-Entry General Ledger & Accounting Invariants
-Branch: feat/core-ledger-v1
-Updated: 2026-09-01 21:35:33
