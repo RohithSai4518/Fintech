@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fintech Enterprise Platform | Core Banking & Trading Engine</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand-header">
+        <div class="brand-logo">FT</div>
+        <div class="brand-text">
+          <h1>FINTECH CORE</h1>
+          <span>ENTERPRISE OS</span>
+        </div>
+      </div>
+
+      <ul class="nav-links">
+        <li class="nav-item active" data-tab="overview">
+          <span class="nav-icon">📊</span>
+          <span>Overview & KPIs</span>
+        </li>
+        <li class="nav-item" data-tab="accounts">
+          <span class="nav-icon">🏦</span>
+          <span>Accounts & Vaults</span>
+        </li>
+        <li class="nav-item" data-tab="ledger">
+          <span class="nav-icon">📖</span>
+          <span>General Ledger</span>
+        </li>
+        <li class="nav-item" data-tab="payments">
+          <span class="nav-icon">💳</span>
+          <span>Payments & Wires</span>
+        </li>
+        <li class="nav-item" data-tab="trading">
+          <span class="nav-icon">📈</span>
+          <span>Trading & FX</span>
+        </li>
+        <li class="nav-item" data-tab="risk">
+          <span class="nav-icon">🛡️</span>
+          <span>Fraud & AML Risk</span>
+        </li>
+        <li class="nav-item" data-tab="reports">
+          <span class="nav-icon">📑</span>
+          <span>Financial Reports</span>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <span>ACID / Merkle Chained</span>
+        <span class="badge badge-success">STABLE</span>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <div class="main-wrapper">
+      <!-- Header -->
+      <header class="top-bar">
+        <h2 id="page-title-text" class="page-title">Executive Overview & Core Banking KPIs</h2>
+        <div class="top-actions">
+          <button class="btn btn-secondary" onclick="App.seedData()">
+            🌱 Seed Simulation Data
+          </button>
+          <button class="btn btn-primary" onclick="App.refreshKPIs()">
+            🔄 Refresh
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <main class="content-body">
+        <!-- 1. TAB: OVERVIEW -->
+        <div id="tab-overview" class="tab-content active">
+          <!-- Executive KPI Grid -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-label">Active Accounts</span>
+              <span id="kpi-accounts" class="kpi-value">--</span>
+              <span class="kpi-subtext">Checking, Savings & Vaults</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Total Transactions</span>
+              <span id="kpi-tx-count" class="kpi-value">--</span>
+              <span class="kpi-subtext">ACID Immutable Records</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Volume Processed</span>
+              <span id="kpi-volume" class="kpi-value">--</span>
+              <span class="kpi-subtext">Total multi-rail volume</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Fee Revenue Earned</span>
+              <span id="kpi-revenue" class="kpi-value">--</span>
+              <span class="kpi-subtext">Settlement & interchange fees</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Executed Trades</span>
+              <span id="kpi-trades" class="kpi-value">--</span>
+              <span class="kpi-subtext">Order matching volume</span>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+            <!-- Key Accounts Portfolio Preview -->
+            <div class="card-panel">
+              <div class="panel-header">
+                <h3 class="panel-title">Active Customer Accounts & Reserves</h3>
+                <button class="btn btn-secondary" onclick="App.switchTab('accounts')">View All</button>
+              </div>
+              <div class="table-responsive">
+                <table class="fin-table">
+                  <thead>
+                    <tr>
+                      <th>Account Number</th>
+                      <th>Account Holder</th>
+                      <th>Subtype</th>
+                      <th>Available Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody id="overview-accounts-body">
+                    <!-- Populated via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Platform Security & Engine Specs -->
+            <div class="card-panel">
+              <div class="panel-header">
+                <h3 class="panel-title">Fintech Engine Diagnostics</h3>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 14px; font-size: 13px;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                  <span style="color: var(--text-secondary);">Accounting Model</span>
+                  <strong>Double-Entry General Ledger</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                  <span style="color: var(--text-secondary);">Audit Chaining</span>
+                  <strong>SHA-256 Merkle Chained</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                  <span style="color: var(--text-secondary);">Payment Rails</span>
+                  <strong>Card (Luhn), ACH, Wire, Internal</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                  <span style="color: var(--text-secondary);">Order Matching</span>
+                  <strong>Price-Time Priority (LOB)</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Idempotency Lock</span>
+                  <span class="badge badge-success">ENFORCED</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. TAB: ACCOUNTS -->
+        <div id="tab-accounts" class="tab-content">
+          <div class="card-panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Provision New Ledger Account</h3>
+            </div>
+            <form id="create-account-form" onsubmit="App.handleCreateAccount(event)">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Account Name / Entity</label>
+                  <input type="text" id="new-acc-name" class="form-control" placeholder="e.g. Acme Treasury Reserve" required />
+                </div>
+                <div class="form-group">
+                  <label>Account Type</label>
+                  <select id="new-acc-type" class="form-control">
+                    <option value="LIABILITY">LIABILITY (Customer Deposit / Payables)</option>
+                    <option value="ASSET">ASSET (Cash Reserves / Clearing / Receivables)</option>
+                    <option value="EQUITY">EQUITY (Capital / Retained Earnings)</option>
+                    <option value="REVENUE">REVENUE (Fee Collection)</option>
+                    <option value="EXPENSE">EXPENSE (Operational / Interest Expense)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Account Subtype</label>
+                  <select id="new-acc-subtype" class="form-control">
+                    <option value="CHECKING">CHECKING</option>
+                    <option value="SAVINGS">SAVINGS</option>
+                    <option value="INVESTMENT">INVESTMENT</option>
+                    <option value="ESCROW">ESCROW</option>
+                    <option value="CLEARING">CLEARING</option>
+                    <option value="VAULT">VAULT</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Currency</label>
+                  <select id="new-acc-curr" class="form-control">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                    <option value="JPY">JPY</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Annual Percentage Yield (APY %)</label>
+                  <input type="number" step="0.01" min="0" id="new-acc-apy" class="form-control" placeholder="0.0" value="0.0" />
+                </div>
+              </div>
+              <div style="margin-top: 16px; display: flex; justify-content: flex-end;">
+                <button type="submit" class="btn btn-primary">Create Account</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card-panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Chart of Accounts Directory</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="fin-table">
+                <thead>
+                  <tr>
+                    <th>Account Number</th>
+                    <th>Account Name</th>
+                    <th>Type</th>
+                    <th>Subtype</th>
+                    <th>Currency</th>
+                    <th>Book Balance</th>
+                    <th>Available Balance</th>
+                    <th>APY</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="accounts-table-body">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. TAB: LEDGER -->
+        <div id="tab-ledger" class="tab-content">
+          <!-- Rendered via LedgerComponent -->
+        </div>
+
+        <!-- 4. TAB: PAYMENTS -->
+        <div id="tab-payments" class="tab-content">
+          <!-- Rendered via PaymentsComponent -->
+        </div>
+
+        <!-- 5. TAB: TRADING -->
+        <div id="tab-trading" class="tab-content">
+          <!-- Rendered via TradingComponent -->
+        </div>
+
+        <!-- 6. TAB: RISK -->
+        <div id="tab-risk" class="tab-content">
+          <!-- Rendered via RiskComponent -->
+        </div>
+
+        <!-- 7. TAB: REPORTS -->
+        <div id="tab-reports" class="tab-content">
+          <!-- Rendered via ReportsComponent -->
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- JavaScript Scripts (Vanilla Modular ES6) -->
+  <script src="/js/api.js"></script>
+  <script src="/js/components/ledger.js"></script>
+  <script src="/js/components/payments.js"></script>
+  <script src="/js/components/trading.js"></script>
+  <script src="/js/components/risk.js"></script>
+  <script src="/js/components/reports.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
